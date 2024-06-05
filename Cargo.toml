@@ -1,5 +1,5 @@
 [package]
-name = "dd2-height-alerter"
+name = "dd2-height-alarm"
 version = "0.1.0"
 edition = "2021"
 
