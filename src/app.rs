@@ -1,7 +1,7 @@
 use std::{error::Error, f64::consts::E, sync::{Arc, Mutex}, time::Duration};
 
 use cpal::{traits::{DeviceTrait, HostTrait}, SupportedStreamConfig};
-use egui::{ahash::{HashMap, HashMapExt}, emath::inverse_lerp, lerp, pos2, vec2, Align2, Color32, FontId, Rect, Response, Rgba, Sense, TextStyle, Vec2};
+use egui::{ahash::{HashMap, HashMapExt}, emath::inverse_lerp, lerp, pos2, vec2, Align2, Color32, FontId, Rect, Response, Rgba, Sense, TextStyle, Vec2, Visuals};
 use serde::{Deserialize, Serialize};
 
 use crate::{play_sound::{play_for_player_floor, test_play_sounds, SoundTheme}, players::*};
@@ -18,7 +18,7 @@ pub struct HAppState {
 impl HAppState {
     pub fn new() -> Self {
         let sound_devices = list_sound_devices().into();
-        let last_update_request = std::time::Instant::now().checked_sub(Duration::from_secs(5000)).unwrap();
+        let last_update_request = std::time::Instant::now().checked_sub(Duration::from_secs(5)).unwrap_or(std::time::Instant::now());
         let last_lb_request = last_update_request;
         let (tx, rx) = std::sync::mpsc::channel();
         Self {
@@ -211,6 +211,9 @@ fn click_to_point_or_neg(ui: &egui::Ui) -> egui::Pos2 {
 
 impl eframe::App for HeightsApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+        if !ctx.style().visuals.dark_mode {
+            ctx.set_visuals(Visuals::dark());
+        }
         self.check_update_heights(ctx);
         self.check_insert_fonts(ctx);
         // egui::TopBottomPanel::top("top_panel").show(ctx, |ui| {
@@ -234,7 +237,7 @@ impl eframe::App for HeightsApp {
                         }
                         let alarm = self.player_states.get_mut(&pd.wsid).unwrap().update(pd);
                         if matches!(alarm, AlarmState::Alarm(i) if i >= self.floor_alarm_start) {
-                            eprintln!("Alarm: {:?}", alarm);
+                            eprintln!("⚠️⚠️⚠️⚠️ Alarm: {:?} ⚠️⚠️⚠️⚠️", alarm);
                             alarm_player = Some(pd.clone());
                         }
                     });
