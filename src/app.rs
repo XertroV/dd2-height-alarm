@@ -74,7 +74,7 @@ impl HeightsApp {
             players: None,
             show_settings: false,
             player_states: HashMap::new(),
-            floor_alarm_start: 11,
+            floor_alarm_start: 14,
             persistent_alarm: true,
         }
     }
@@ -249,8 +249,10 @@ impl eframe::App for HeightsApp {
                 }
                 players.draw_live_heights(ui);
             } else {
-                ui.allocate_rect(Rect::from_min_max(pos2(0.0, 0.0), pos2(300.0, 50.0)), Sense::hover());
+                ui.allocate_rect(Rect::from_min_max(pos2(10.0, 0.0), pos2(300.0, 50.0)), Sense::hover());
                 self.draw_settings(ui);
+                // ui.indent("pad", |ui| {
+                // });
             }
 
             self.draw_buttons_top_right(ui, cur, size);
