@@ -32,7 +32,6 @@ fn main() {
             .with_decorations(true)
             // .with_maximize_button(false)
             // .with_active(true)
-            // .with_drag_and_drop(true)
             .with_icon(icon_data),
         ..Default::default()
     };
