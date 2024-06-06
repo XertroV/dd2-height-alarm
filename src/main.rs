@@ -30,8 +30,8 @@ fn main() {
             .with_max_inner_size(vec2(300.0, 800.0))
             .with_taskbar(true)
             .with_decorations(true)
-            .with_maximize_button(false)
-            .with_active(true)
+            // .with_maximize_button(false)
+            // .with_active(true)
             // .with_drag_and_drop(true)
             .with_icon(icon_data),
         ..Default::default()
