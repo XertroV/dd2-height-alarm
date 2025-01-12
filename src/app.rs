@@ -422,7 +422,11 @@ impl CurrPlayers {
     }
 
     fn draw_floor_tick(&self, ui: &mut egui::Ui, pos: egui::Pos2) {
-        let xmm = self.get_x_min_max();
+        let window_width = ui.available_size().x;
+
+        let mut xmm = self.get_x_min_max();
+        xmm.y = xmm.y.max(window_width);
+
         let tl = pos2(xmm.x, pos.y - 1.0);
         let br = pos2(xmm.y, pos.y + 1.0);
         let rect = egui::Rect::from_two_pos(tl, br);
