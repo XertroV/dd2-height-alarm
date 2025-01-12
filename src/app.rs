@@ -196,7 +196,7 @@ impl HeightsApp {
     }
 
     fn draw_settings(&mut self, ui: &mut egui::Ui) {
-        ui.add(egui::Slider::new(&mut self.floor_alarm_start, 0..=16).text("Floor Alarm Start"));
+        ui.add(egui::Slider::new(&mut self.floor_alarm_start, 0..=17).text("Floor Alarm Start"));
         ui.checkbox(&mut self.persistent_alarm, "(TODO) Keep alarm going till you acknowledge");
     }
 }
